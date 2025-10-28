@@ -12,4 +12,8 @@ import { ConfigModule } from '../config/config.module';
         inject: [ConfigService],
     })],
 })
-export class DatabaseModule {}
+export class DatabaseModule {
+    static forFeature(models: { name: string; schema: any }[]) {
+        return MongooseModule.forFeature(models);
+    }
+}

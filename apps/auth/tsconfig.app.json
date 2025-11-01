@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": { "outDir": "../../dist/apps/reservations" },
+  "compilerOptions": { "outDir": "../../dist/apps/auth" },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "test", "dist", "**/*.spec.ts"]
 }

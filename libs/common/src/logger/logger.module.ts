@@ -1,17 +1,16 @@
 import { Module } from "@nestjs/common";
-import { LoggerModule as PinoModule } from "nestjs-pino/LoggerModule";
-import { pinoHttp } from "pino-http";
-
+import { LoggerModule as PinoModule } from "nestjs-pino";
 
 @Module({
   imports: [
     PinoModule.forRoot({
       pinoHttp: {
         level: process.env.LOG_LEVEL || "info",
-        transport: {
+        transport: process.env.NODE_ENV === "production" ? undefined : {
           target: "pino-pretty",
           options: {
-            colorize: true,
+            singleLine: true,
+            translateTime: "SYS:standard",
           },
         },
       },

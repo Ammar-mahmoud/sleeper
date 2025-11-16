@@ -1,17 +1,8 @@
-import { Schema, Prop } from "@nestjs/mongoose";
-import { SchemaTypes } from "mongoose";
+import { Prop, Schema } from '@nestjs/mongoose';
+import { SchemaTypes, Types } from 'mongoose';
 
 @Schema()
-export abstract class AbstractDocument {
-    @Prop({type: SchemaTypes.ObjectId})
-    _id: string;
-
-    @Prop({type: Date, default: Date.now})
-    createdAt: Date;
-    
-    @Prop({type: Date, default: Date.now})
-    updatedAt: Date;
-
-    @Prop({type: Boolean, default: false})
-    isDeleted: boolean;
+export class AbstractDocument {
+  @Prop({ type: SchemaTypes.ObjectId })
+  _id: Types.ObjectId;
 }

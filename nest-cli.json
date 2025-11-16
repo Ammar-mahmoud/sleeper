@@ -1,7 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/reservations/src",
+  "monorepo": true,
+  "root": "apps",
+  "compilerOptions": {
+    "webpack": false
+  },
   "projects": {
     "common": {
       "type": "library",
@@ -30,11 +34,5 @@
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     }
-  },
-  "compilerOptions": {
-    "webpack": true,
-    "tsConfigPath": "apps/reservations/tsconfig.app.json"
-  },
-  "monorepo": true,
-  "root": "apps/reservations"
+  }
 }

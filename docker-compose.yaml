@@ -19,5 +19,15 @@ services:
     ports:
       - "3001:3001"
 
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: production
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - "3003:3003"
+
   mongo:
     image: mongo

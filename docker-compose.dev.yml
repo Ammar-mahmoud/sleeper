@@ -5,9 +5,13 @@ services:
     build:
       context: .
       dockerfile: ./apps/reservations/Dockerfile
-      target: production
+      target: development
+    command: pnpm run start:dev reservations
     env_file:
       - ./apps/reservations/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     depends_on:
@@ -17,9 +21,13 @@ services:
     build:
       context: .
       dockerfile: ./apps/auth/Dockerfile
-      target: production
+      target: development
+    command: pnpm run start:dev auth
     env_file:
       - ./apps/auth/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3001:3001"
     depends_on:
@@ -29,9 +37,13 @@ services:
     build:
       context: .
       dockerfile: ./apps/payments/Dockerfile
-      target: production
+      target: development
+    command: pnpm run start:dev payments
     env_file:
       - ./apps/payments/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3003:3003"
     depends_on:
@@ -39,8 +51,5 @@ services:
 
   mongo:
     image: mongo:6
-    volumes:
-      - mongo-data:/data/db
-
-volumes:
-  mongo-data:
+    ports:
+      - "27017:27017"

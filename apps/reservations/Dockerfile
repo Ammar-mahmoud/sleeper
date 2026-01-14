@@ -1,23 +1,45 @@
-FROM node:alpine as builder
+# =========================
+# Development
+# =========================
+FROM node:alpine AS development
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm
+
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
 COPY . .
 
-RUN pnpm run build
 
-FROM node:alpine as production
+# =========================
+# Builder
+# =========================
+FROM node:alpine AS builder
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm
+
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
+
+COPY . .
+RUN pnpm run build
+
+
+# =========================
+# Production
+# =========================
+FROM node:alpine AS production
+WORKDIR /usr/src/app
+
+ENV NODE_ENV=production
+
+RUN npm install -g pnpm
+
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --prod
 
 COPY --from=builder /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/reservations/apps/reservations/src/main.js"]
-
-
+CMD ["node", "dist/apps/reservations/src/main.js"]

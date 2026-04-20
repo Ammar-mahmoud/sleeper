@@ -14,10 +14,12 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     await this.validateCreateUserDto(createUserDto);
-    return this.usersRepository.create({
+    const created = await this.usersRepository.create({
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
     });
+    const { password, ...safeUser } = created as any;
+    return safeUser as any;
   }
 
   private async validateCreateUserDto(createUserDto: CreateUserDto) {

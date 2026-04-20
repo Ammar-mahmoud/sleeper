@@ -1,7 +1,7 @@
 # =========================
 # Development
 # =========================
-FROM node:alpine AS development
+FROM node:18-alpine AS development
 WORKDIR /usr/src/app
 
 RUN npm install -g pnpm
@@ -15,7 +15,7 @@ COPY . .
 # =========================
 # Builder
 # =========================
-FROM node:alpine AS builder
+FROM node:18-alpine AS builder
 WORKDIR /usr/src/app
 
 RUN npm install -g pnpm
@@ -30,7 +30,7 @@ RUN pnpm run build
 # =========================
 # Production
 # =========================
-FROM node:alpine AS production
+FROM node:18-alpine AS production
 WORKDIR /usr/src/app
 
 ENV NODE_ENV=production
@@ -42,4 +42,4 @@ RUN pnpm install --prod
 
 COPY --from=builder /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/auth/src/main.js"]
+CMD ["node", "dist/apps/auth/main.js"]

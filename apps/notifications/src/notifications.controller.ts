@@ -10,7 +10,7 @@ export class NotificationsController {
   @UsePipes(new ValidationPipe())
   @EventPattern('notify_email') // lesa me4 4a8al
   async notifyEmail(@Payload() data: NotifyEmailDto) {
-    console.log('Received notify_email event with data:', data);
+    // debug log removed; use centralized logger instead
     await this.notificationsService.notifyEmail(data);
   }
 }

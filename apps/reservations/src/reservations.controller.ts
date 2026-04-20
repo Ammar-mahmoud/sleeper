@@ -23,7 +23,7 @@ export class ReservationsController {
     @Body() createReservationDto: CreateReservationDto,
     @CurrentUser() user: UserDto,
   ) {
-    console.log('Creating reservation for user:', user);
+    // debug log removed; use centralized logger instead
     return this.reservationsService.create(createReservationDto, user);
   }
 

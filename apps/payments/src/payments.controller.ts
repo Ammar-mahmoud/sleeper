@@ -11,7 +11,7 @@ export class PaymentsController {
   @MessagePattern('create_charge')
   @UsePipes(new ValidationPipe())
   async createCharge(@Payload() data: PaymentsCreateChargeDto) {
-    console.log('Received create_charge message with data:', data);
+    // debug log removed; use centralized logger instead
     return this.paymentsService.createCharge(data);
   }
 }
